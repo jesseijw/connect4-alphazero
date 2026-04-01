@@ -1,1 +1,1 @@
-# -alphazero
+# connect4-alphazero
