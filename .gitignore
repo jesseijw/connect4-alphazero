@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.py[cod]
+venv/
+*.egg-info/
+.env
+
+# Model checkpoints
+backend/model/checkpoints/
+
+# React
+frontend/node_modules/
+frontend/build/
+
+# Mac
+.DS_Store
