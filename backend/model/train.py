@@ -40,6 +40,9 @@ def selfPlayGame(net):
         maskedProbs = np.zeros(7)
         for m in validMoves:
             maskedProbs[m] = moveProbs[m]
+        if maskedProbs.sum() == 0:
+            for m in validMoves:
+                maskedProbs[m] = 1
         maskedProbs /= maskedProbs.sum()
 
         chosenMove = np.random.choice(7, p=maskedProbs)

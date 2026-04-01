@@ -61,7 +61,15 @@ class MCTS:
             moveCounts[move] = kiddo.visitCount
 
         # normalize to get probabilities
-        moveProbs = moveCounts / moveCounts.sum()
+        # if sum is 0 for some reason, fall back to uniform over valid moves
+        total = moveCounts.sum()
+        if total == 0:
+            validMoves = game.get_valid_moves()
+            for m in validMoves:
+                moveCounts[m] = 1
+            moveProbs = moveCounts / moveCounts.sum()
+        else:
+            moveProbs = moveCounts / total
         return moveProbs
 
     def runSimulation(self, node):
@@ -93,6 +101,9 @@ class MCTS:
                     prior=policyOut[move]
                 )
 
+            # update this leaf's stats too so visitCount doesnt stay 0
+            node.visitCount += 1
+            node.totalValue += valueOut
             return -valueOut
 
         # pick the child with the highest UCB score
